@@ -13,18 +13,19 @@ void PV::PixelVisualiser::createWindow(const std::string& name, const Vector2<in
 
 void PV::PixelVisualiser::display()
 {
+    // Call main loop callback
     loop();
 
-    if(windows.empty())
-        return;
+    if (!windows.empty())
+    {
+        windows[currentWindow]->display();
 
-    windows[currentWindow]->display();
-
-    // Loop through window count every display update
-    currentWindow = (currentWindow + 1) % windows.size();
+        // Loop through window count every display update
+        currentWindow = (currentWindow + 1) % windows.size();
+    }
 
     // Reschedule display call
-    if(updateMethod == UpdateMethod::Continuous)
+    if (updateMethod == UpdateMethod::Continuous)
         glutPostRedisplay();
 }
 
@@ -34,19 +35,19 @@ void PV::PixelVisualiser::start()
     int argc = 0;
     char* argv[] = {0};
 
+    // Call main callback
     main();
 
+    // Init glut
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
-
-    int i = 'a';
 
     for (const std::shared_ptr<Window>& window : windows)
     {
         // Initialise the window
         window->start();
 
-        // Link static display function to every window display  GLUT callback
+        // Link the static display callback to every window GLUT callback
         glutDisplayFunc(display);
     }
 

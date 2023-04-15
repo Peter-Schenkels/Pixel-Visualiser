@@ -24,5 +24,4 @@ set(SRC ${Tests})
 add_project(Test
             GUI_APP
             SOURCES ${SRC}
-            DEPENDS Pixel-Visualiser-Lib)
-
+            DEPENDS opengl32 FreeGLUT::freeglut )

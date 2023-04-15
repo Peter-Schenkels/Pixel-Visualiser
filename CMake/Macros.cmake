@@ -15,7 +15,18 @@ macro(add_project target)
     if(THIS_STATIC_LIB)
         add_library(${target} STATIC ${target_input})
     elseif(THIS_GUI_APP)
+        if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+            message("Linking freeglut debug dll ands lib")
+            install(FILES ${FREEGLUT_DIR}/bin/Debug/freeglutd.dll DESTINATION ${CMAKE_INSTALL_PREFIX})
+        else()
+            message("Linking freeglut release dll ands lib")
+            install(FILES ${FREEGLUT_DIR}/bin/Release/freeglut.dll DESTINATION ${CMAKE_INSTALL_PREFIX})
+        endif()
+
         add_executable(${target} ${target_input})
+        include(${FREEGLUT_CMAKE_DIR}/FreeGLUTConfig.cmake)
+        include_directories(${FREEGLUT_INCLUDE_DIR})
+        target_include_directories(${target} PRIVATE ${FREEGLUT_INCLUDE_DIR})
     endif()
 
 
@@ -37,6 +48,7 @@ macro(add_project target)
 
     # set the Visual Studio startup path for debugging
     set_target_properties(${target} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+
 
     # link the target to its SFML dependencies
     if(THIS_DEPENDS)

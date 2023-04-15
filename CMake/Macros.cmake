@@ -15,23 +15,23 @@ macro(add_project target)
     if(THIS_STATIC_LIB)
         add_library(${target} STATIC ${target_input})
     elseif(THIS_GUI_APP)
-        add_executable(${target} ${target_input})
-        include(${FREEGLUT_CMAKE_DIR}/FreeGLUTConfig.cmake)
-        include_directories(${FREEGLUT_INCLUDE_DIR})
-
-        # Specify the source and destination directories for the DLL files
-        set(SOURCE_DLL_DIR "${FREEGLUT_DIR}/bin/$<CONFIGURATION>")
-        set(DEST_DLL_DIR "${CMAKE_CURRENT_BINARY_DIR}/$<CONFIGURATION>")
-
-        # copy freeglut.dll to specified build configuration target
-        add_custom_command(TARGET ${target} POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy_if_different
-                "${FREEGLUT_DIR}/bin/$<CONFIGURATION>/freeglut$<$<CONFIG:Debug>:d>.dll"
-                $<TARGET_FILE_DIR:${target}>)
-
-
-        target_include_directories(${target} PRIVATE ${FREEGLUT_INCLUDE_DIR})
+        add_executable(${target} ${target_input})      
     endif()
+
+    include(${FREEGLUT_CMAKE_DIR}/FreeGLUTConfig.cmake)
+    include_directories(${FREEGLUT_INCLUDE_DIR})
+
+    # Specify the source and destination directories for the DLL files
+    set(SOURCE_DLL_DIR "${FREEGLUT_DIR}/bin/$<CONFIGURATION>")
+    set(DEST_DLL_DIR "${CMAKE_CURRENT_BINARY_DIR}/$<CONFIGURATION>")
+
+    # copy freeglut.dll to specified build configuration target
+    add_custom_command(TARGET ${target} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${FREEGLUT_DIR}/bin/$<CONFIGURATION>/freeglut$<$<CONFIG:Debug>:d>.dll"
+            $<TARGET_FILE_DIR:${target}>)
+
+    target_include_directories(${target} PRIVATE ${FREEGLUT_INCLUDE_DIR})
 
 
     if(USE_STATIC_STD_LIBS)

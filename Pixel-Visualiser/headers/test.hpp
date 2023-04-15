@@ -1,4 +1,4 @@
 #include <iostream>
 
 // Say hello
-void SayHelloWorld();
+void SayHelloWorld(int argc, char** argv);

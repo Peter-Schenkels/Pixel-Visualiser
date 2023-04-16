@@ -25,8 +25,7 @@ void PV::Window::display() const
         const std::vector<Pixel>& pixels = buffer.getPixels();
         for (Pixel pixel: pixels)
         {
-            glColor3f(pixel.color.r(), pixel.color.g(), pixel.color.b());
-            drawPixel(pixelSize, pixel.position);
+            drawPixel(pixelSize, pixel);
         }
     }
 

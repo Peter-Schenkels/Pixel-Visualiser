@@ -8,7 +8,7 @@ static PV::Window& window1 = PV::PixelVisualiser::createWindow("Hello", { 500, 5
 static PV::Window& window2 = PV::PixelVisualiser::createWindow("World", { 500, 500 }, { 300, 300 });
 
 static PV::Buffer& buffer1 = window1.createBuffer({ 0, 0 }, { 0.05f, 0.05f });
-static PV::Buffer& buffer2 = window2.createBuffer({ 0, 10 }, { 0.05f,0.05f});
+static PV::Buffer& buffer2 = window2.createBuffer({ 0, 10 }, { 0.08f,0.08f});
 
 
 

@@ -14,6 +14,20 @@ PV::Window& PV::PixelVisualiser::createWindow(const std::string& name, const Vec
     return *newWindow;
 }
 
+void PV::drawPixel(const Vector2<float>& pixelSize, const Pixel pixel)
+{
+    glBegin(GL_TRIANGLES);
+    glColor3f(pixel.color.r(), pixel.color.g(), pixel.color.b());
+    glVertex2f(pixel.position.x * pixelSize.x, pixel.position.y * pixelSize.y);
+    glVertex2f((pixel.position.x + 1) * pixelSize.x, pixel.position.y * pixelSize.y);
+    glVertex2f(pixel.position.x * pixelSize.x, (pixel.position.y + 1) * pixelSize.y);
+    glColor3f(pixel.color.r(), pixel.color.g(), pixel.color.b());
+    glVertex2f(pixel.position.x * pixelSize.x, (pixel.position.y + 1) * pixelSize.y);
+    glVertex2f((pixel.position.x + 1) * pixelSize.x, pixel.position.y * pixelSize.y);
+    glVertex2f((pixel.position.x + 1) * pixelSize.x, (pixel.position.y + 1) * pixelSize.y);
+    glEnd();
+}
+
 void PV::PixelVisualiser::display()
 {
     // Call main loop callback

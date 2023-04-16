@@ -19,20 +19,8 @@ namespace PV
     const int NUM_SQUARES = 64;
 
 
-    //function for turning a pixel with pixel size into a square in a grid on screen using glut
-    inline void drawPixel(const Vector2<float>& pixelSize, const Vector2<int>& position)
-    {
-        glBegin(GL_TRIANGLES);
-        glColor3f(1.0, 0.0, 0.0);
-        glVertex2f(position.x * pixelSize.x, position.y * pixelSize.y);
-        glVertex2f((position.x + 1) * pixelSize.x, position.y * pixelSize.y);
-        glVertex2f(position.x * pixelSize.x, (position.y + 1) * pixelSize.y);
-        glColor3f(1.0, 0.0, 0.0);
-        glVertex2f(position.x * pixelSize.x, (position.y + 1) * pixelSize.y);
-        glVertex2f((position.x + 1) * pixelSize.x, position.y * pixelSize.y);
-        glVertex2f((position.x + 1) * pixelSize.x, (position.y + 1) * pixelSize.y);
-        glEnd();
-    }
+    //function for turning a pixel with pixel size into a square in a grid on screen using glut using the correct color
+    void drawPixel(const Vector2<float>& pixelSize, const Pixel pixel);
 
     //function for drawing a circle using squares
     //inline void drawCircleSquares(float x, float y, float radius, int num_segments)

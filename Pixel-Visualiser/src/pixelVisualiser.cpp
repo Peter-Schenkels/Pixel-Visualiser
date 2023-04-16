@@ -6,9 +6,12 @@ int PV::PixelVisualiser::currentWindow = 0;
 std::vector<std::shared_ptr<PV::Window>> PV::PixelVisualiser::windows{};
 PV::PixelVisualiser::UpdateMethod PV::PixelVisualiser::updateMethod = UpdateMethod::GlutEventHandler;
 
-void PV::PixelVisualiser::createWindow(const std::string& name, const Vector2<int>& size, const Vector2<int>& startPosition)
+PV::Window& PV::PixelVisualiser::createWindow(const std::string& name, const Vector2<int>& size,
+                                              const Vector2<int>& startPosition)
 {
-    windows.push_back(std::make_shared<Window>(name, size, startPosition));
+    const auto newWindow = std::make_shared<Window>(name, size, startPosition);
+    windows.push_back(newWindow);
+    return *newWindow;
 }
 
 void PV::PixelVisualiser::display()

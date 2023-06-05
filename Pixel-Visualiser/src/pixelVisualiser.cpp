@@ -4,7 +4,7 @@
 // Declare static members
 int PV::PixelVisualiser::currentWindow = 0;
 std::vector<std::shared_ptr<PV::Window>> PV::PixelVisualiser::windows{};
-PV::PixelVisualiser::UpdateMethod PV::PixelVisualiser::updateMethod = UpdateMethod::GlutEventHandler;
+PV::PixelVisualiser::UpdateMethod PV::PixelVisualiser::updateMethod = UpdateMethod::Continuous;
 
 PV::Window& PV::PixelVisualiser::createWindow(const std::string& name, const Vector2<int>& size,
                                               const Vector2<int>& startPosition)
@@ -30,7 +30,7 @@ void PV::drawPixel(const Vector2<float>& pixelSize, const Pixel pixel)
 
 void PV::PixelVisualiser::display()
 {
-    // Call main loop callback
+    // Call start loop callback
     loop();
 
     if (!windows.empty())
@@ -46,14 +46,14 @@ void PV::PixelVisualiser::display()
         glutPostRedisplay();
 }
 
-void PV::PixelVisualiser::start()
+void PV::PixelVisualiser::execute()
 {
     // Create valid argc and argv variables whch are required by glutInit
     int argc = 0;
     char* argv[] = {0};
 
-    // Call main callback
-    main();
+    // Call start callback
+    start();
 
     // Init glut
     glutInit(&argc, argv);
@@ -68,6 +68,6 @@ void PV::PixelVisualiser::start()
         glutDisplayFunc(display);
     }
 
-    // Start the main loop
+    // Start the start loop
     glutMainLoop();
 }

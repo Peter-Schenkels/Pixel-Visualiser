@@ -1,6 +1,6 @@
 #include "../headers/buffer.hpp"
 
-void PV::Buffer::clearBuffer() const
+void PV::Buffer::clear() const
 {
     buffer.clear();
 }

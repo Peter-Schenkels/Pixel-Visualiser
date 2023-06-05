@@ -26,10 +26,12 @@ namespace PV
 
         void start() const;
 
-        [[nodiscard]] Buffer& createBuffer(Vector2<int> position, Vector2<float> pixelSize);
+        [[nodiscard]] Buffer& createBuffer(Vector2<int> position, Vector2<int> size, Vector2<float> pixelSize);
 
-        void draw(const Buffer& buffer);
+        void focus(const Buffer& buffer);
 
-        void clear() { bufferStack.clear(); }
+        void unfocus() { bufferStack.clear(); }
+
+        bool unfocus(const Buffer& buffer) { return std::remove(bufferStack.begin(), bufferStack.end(), buffer.getId()) != bufferStack.end(); }
     };
 }

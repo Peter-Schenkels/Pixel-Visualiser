@@ -24,26 +24,29 @@ namespace PV
     class Buffer
     {
         int id;
-
+        Vector2<int> size = Vector2(0, 0);
         Vector2<int> position = Vector2(0, 0);
         Vector2<float> pixelSize = Vector2(0.f, 0.f);
 
         std::vector<Pixel>& buffer;
 
     public:
-        Buffer(const Vector2<int> size, const Vector2<float> pixelSize, const int id) :
+        Buffer(const Vector2<int> size, const Vector2<float> pixelSize, const Vector2<int> position, const int id) :
             id(id),
-            position(size),
+            size(size),
+            position(position),
             pixelSize(pixelSize),
             buffer(*new std::vector<Pixel>())
         {
         }
 
-        void clearBuffer() const;
+        void clear() const;
         void drawPixel(Pixel pixel) const;
+        void setPosition(const Vector2<int> pos) { position = pos; }
 
         [[nodiscard]] int getId() const { return id; }
         [[nodiscard]] std::vector<Pixel>& getPixels() const { return buffer; }
         [[nodiscard]] Vector2<float> getPixelSize() const { return pixelSize; }
+        [[nodiscard]] Vector2<int> getPosition() const { return position; }
     };
 }

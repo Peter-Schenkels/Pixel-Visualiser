@@ -14,8 +14,8 @@ PV::Window::Window(std::string name, const Vector2<int>& size, const Vector2<int
 
 void PV::Window::display() const
 {
-    glClear(GL_COLOR_BUFFER_BIT);
-    // Draw a circle with radius 0.4 at position (0.0, 0.0)
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     for (int bufferId : bufferStack)
     {
@@ -25,6 +25,7 @@ void PV::Window::display() const
         const std::vector<Pixel>& pixels = buffer.getPixels();
         for (Pixel pixel: pixels)
         {
+            pixel.position += buffer.getPosition();
             drawPixel(pixelSize, pixel);
         }
     }
@@ -40,14 +41,14 @@ void PV::Window::start() const
     glClearColor(1.0, 1.0, 1.0, 0.0);
 }
 
-PV::Buffer& PV::Window::createBuffer(PV::Vector2<int> position, PV::Vector2<float> pixelSize)
+PV::Buffer& PV::Window::createBuffer(PV::Vector2<int> position, PV::Vector2<int> size, PV::Vector2<float> pixelSize)
 {
     idCounter++;
-    buffers[idCounter] = std::make_shared<Buffer>(position, pixelSize, idCounter);
+    buffers[idCounter] = std::make_shared<Buffer>(size, pixelSize, position, idCounter);
     return *buffers[idCounter];
 }
 
-void PV::Window::draw(const Buffer& buffer)
+void PV::Window::focus(const Buffer& buffer)
 {
     bufferStack.push_back(buffer.getId());
 }

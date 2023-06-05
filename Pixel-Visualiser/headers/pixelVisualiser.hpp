@@ -49,9 +49,10 @@ namespace PV
         static UpdateMethod updateMethod;
 
         static void display();
-        static void main();
+        static void start();
+        static int pulse(int input, int speed, int max);
         static void loop();
-        static void drawRectangleBorders(const Buffer& buffer, Vector2<int> size, Color color);
+        static void drawRectangleBorders(const Buffer& buffer, Vector2<int> position, Vector2<int> size, Color color);
 
     public:
         // function to create a window and add to the list of windows
@@ -59,6 +60,6 @@ namespace PV
                                     const Vector2<int>& startPosition);
 
         // Start the application
-        static void start();
+        static void execute();
     };
 }

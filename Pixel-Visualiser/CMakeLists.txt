@@ -16,7 +16,6 @@ set(Math
     headers/vector3.hpp
 )
 
-# Math stuff
 source_group("Math" FILES ${Math})
 
 set(PixelDrawer
@@ -32,13 +31,6 @@ set(PixelDrawer
 # create pixel draw interface group
 source_group("Interface" FILES ${PixelDrawer})
 
-
-set(Tests
-    src/test.cpp
-    headers/test.hpp
-)
-# create helper functions folder
-source_group("Tests" FILES ${Tests})
 
 # Set all sources and headers to a var
 set(SRC ${Tests} ${PixelDrawer} ${Math})

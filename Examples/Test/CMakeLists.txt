@@ -20,6 +20,5 @@ set(SRC ${src})
 add_project(
 			Colored-Squares
 			EXAMPLE
-			Jinkeee
             SOURCES ${SRC}
             DEPENDS Pixel-Visualiser opengl32 FreeGLUT::freeglut )

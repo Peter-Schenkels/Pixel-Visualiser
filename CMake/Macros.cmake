@@ -1,6 +1,6 @@
 macro(add_project target)
     # parse the arguments
-    cmake_parse_arguments(THIS "STATIC_LIB;GUI_APP;EXAMPLE" "SOURCES;BUNDLE_RESOURCES;DEPENDS" ${ARGN})
+    cmake_parse_arguments(THIS "STATIC_LIB;GUI_APP;EXAMPLE" "NAME" "SOURCES;BUNDLE_RESOURCES;DEPENDS" ${ARGN})
 
     # set a source group for the source files
     source_group("" FILES ${THIS_SOURCES})

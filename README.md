@@ -60,20 +60,7 @@ In this project, we've created an example that demonstrates the creation of mult
 
 ## Building
 
-This project uses a CMake-based build system. Ensure you have a C++ compiler and CMake installed on your system to build it.
-
-```shell
-mkdir build
-cd build
-cmake ..
-make
-```
-
-Then, you can run the example with:
-
-```shell
-./PixelVisualiser
-```
+This project uses a CMake-based build system. Ensure you have a C++ compiler and CMake installed on your system to build it. It is compatible with Visual Studio 2022 for building.
 
 ## Dependencies
 

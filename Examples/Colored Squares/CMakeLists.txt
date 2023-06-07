@@ -6,22 +6,19 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../Pixel-Visualiser)
 ###############################
 # Add all sources and headers #
 ###############################
-set(HELPER_FUNCTIONS)
-
-# create helper functions folder
-source_group("Helper Functions" FILES ${HELPER_FUNCTIONS})
-
-set(Tests
+set(src
     src/main.cpp
+	CMakeLists.txt
 )
 # create helper functions folder
-source_group("Tests" FILES ${Tests})
+source_group("Colored Squares" FILES ${src})
 
 # Set all sources and headers to a var
-set(SRC ${Tests})
+set(SRC ${src})
 
 # define the target
-add_project(Test
-            GUI_APP
+add_project(
+			Colored-Squares
+			EXAMPLE
             SOURCES ${SRC}
             DEPENDS Pixel-Visualiser opengl32 FreeGLUT::freeglut )

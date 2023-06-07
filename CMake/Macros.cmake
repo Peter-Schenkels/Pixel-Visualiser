@@ -1,6 +1,6 @@
 macro(add_project target)
     # parse the arguments
-    cmake_parse_arguments(THIS "STATIC_LIB;GUI_APP" "NAME" "SOURCES;BUNDLE_RESOURCES;DEPENDS" ${ARGN})
+    cmake_parse_arguments(THIS "STATIC_LIB;GUI_APP;EXAMPLE" "NAME" "SOURCES;BUNDLE_RESOURCES;DEPENDS" ${ARGN})
 
     # set a source group for the source files
     source_group("" FILES ${THIS_SOURCES})
@@ -14,8 +14,8 @@ macro(add_project target)
     # create the target
     if(THIS_STATIC_LIB)
         add_library(${target} STATIC ${target_input})
-    elseif(THIS_GUI_APP)
-        add_executable(${target} ${target_input})      
+    elseif(THIS_GUI_APP OR THIS_EXAMPLE)
+        add_executable(${target} ${target_input})       
     endif()
 
     include(${FREEGLUT_CMAKE_DIR}/FreeGLUTConfig.cmake)

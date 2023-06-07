@@ -2,24 +2,20 @@
 #include "headers/window.hpp"
 
 
-// Define buffers
-// arg[1] = position inside window
-// arg[2] = size/dimensions
-// arg[3] = size of one pixel
-static PV::Buffer& box1      = PV::PixelVisualiser::createBuffer({ 0,0 }, { 10, 10 }, { 0.01f, 0.01f });
-static PV::Buffer& box2      = PV::PixelVisualiser::createBuffer({ 0,0 }, { 10, 10 }, { 0.01f, 0.01f });
-static PV::Buffer& box3      = PV::PixelVisualiser::createBuffer({ 0,0 }, { 10, 10 }, { 0.01f, 0.01f });
-static PV::Buffer& box4      = PV::PixelVisualiser::createBuffer({ 0,0 }, { 10, 10 }, { 0.01f, 0.01f });
-static PV::Buffer& boxShared = PV::PixelVisualiser::createBuffer({ 0,0 }, { 10, 10 }, { 0.01f, 0.01f });
+static PV::Buffer& box1      = PV::PixelVisualiser::createBuffer({ 0,0 }, { 10, 10 }, { 2, 2 });
+static PV::Buffer& box2      = PV::PixelVisualiser::createBuffer({ 0,0 }, { 10, 10 }, { 2, 2 });
+static PV::Buffer& box3      = PV::PixelVisualiser::createBuffer({ 0,0 }, { 10, 10 }, { 2, 2 });
+static PV::Buffer& box4      = PV::PixelVisualiser::createBuffer({ 0,0 }, { 10, 10 }, { 2, 2 });
+static PV::Buffer& boxShared = PV::PixelVisualiser::createBuffer({ 0,0 }, { 10, 10 }, { 2, 2 });
 
-static PV::Buffer& trials1   = PV::PixelVisualiser::createBuffer({ 0,0 }, { 10, 10 }, { 0.01f, 0.01f });
-static PV::Buffer& trials2   = PV::PixelVisualiser::createBuffer({ 0,0 }, { 10, 10 }, { 0.01f, 0.01f });
+static PV::Buffer& trials1   = PV::PixelVisualiser::createBuffer({ 0,0 }, { 10, 10 }, { 2, 2 });
+static PV::Buffer& trials2   = PV::PixelVisualiser::createBuffer({ 0,0 }, { 10, 10 }, { 2, 2 });
 
 // Define window
 static PV::Window& window1   = PV::PixelVisualiser::createWindow("Colored boxes!", { 500, 500 }, { 100, 100 });
 static PV::Window& window2   = PV::PixelVisualiser::createWindow("Colored boxes!", { 500, 500 }, { 600, 100 });
 
-static int8_t tick = -122;
+static int tick = 0;
 
 // Is run after calling PV::Execute
 void PV::PixelVisualiser::start()
@@ -86,13 +82,14 @@ void PV::PixelVisualiser::loop()
 
     // Update frame tickNr
     tick += 1;
+    int tickPos = tick % 300;
 
     // Define pos of the boxes
-    const auto box1Pos = Vector2(tick / speedRatio, tick / speedRatio + pulse(tick + 20, 10, 23));
-    const auto box2Pos = Vector2(tick / speedRatio + pulse(tick, 100, 30), pulse(tick + 20, 10, 23));
-    const auto box3Pos = Vector2(tick / speedRatio + pulse(tick, 100, 30),  pulse(tick + 40, 30, 12));
-    const auto box4Pos = Vector2(tick / speedRatio + pulse(tick, 100, 30), tick / speedRatio + pulse(tick + 50, 20, 33));
-    const auto boxSharedPos = Vector2(tick / speedRatio, tick / speedRatio);
+    const auto box1Pos = Vector2(tickPos / speedRatio, tickPos / speedRatio + pulse(tickPos + 20, 10, 23));
+    const auto box2Pos = Vector2(tickPos / speedRatio + pulse(tickPos, 100, 30), pulse(tickPos + 20, 10, 23) + 30);
+    const auto box3Pos = Vector2(tickPos / speedRatio + pulse(tickPos, 100, 30),  pulse(tickPos + 40, 30, 12) + 30);
+    const auto box4Pos = Vector2(tickPos / speedRatio + pulse(tickPos, 100, 30), tickPos / speedRatio + pulse(tickPos + 50, 20, 33) + 30);
+    const auto boxSharedPos = Vector2(tickPos / speedRatio, tickPos / speedRatio);
 
     // Set to corresponding positions in absolute coordinates
     box1.setPosition(box1Pos);
@@ -124,7 +121,7 @@ void PV::PixelVisualiser::loop()
     trials2.drawPixel(Pixel(box4Color, box4Pos + Vector2(5,5)));
 
     // Clear trials from window/buffer
-    if(tick == -122)
+    if(tickPos == 299)
     {
         trials1.clear();
         trials2.clear();

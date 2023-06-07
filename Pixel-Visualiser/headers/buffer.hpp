@@ -42,6 +42,8 @@ namespace PV
 
         void clear() const;
         void drawPixel(Pixel pixel) const;
+
+        // Set position (based on buffer pixel size) of the buffer in the window
         void setPosition(const Vector2<int> pos) { position = pos; }
 
         [[nodiscard]] int getId() const { return id; }

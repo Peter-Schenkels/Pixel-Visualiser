@@ -5,19 +5,17 @@
 
 
 std::vector<std::shared_ptr<PV::Window>> PV::PixelVisualiser::windows{};
-std::map<int, std::shared_ptr<PV::Buffer>>& PV::PixelVisualiser::buffers()
-{
-    static std::map<int, std::shared_ptr<PV::Buffer>> map;
-    return map;
-}
 
 // Declare static members
 int PV::PixelVisualiser::currentWindow = 0;
 int PV::PixelVisualiser::idCounter = 0;
 
-
 PV::PixelVisualiser::UpdateMethod PV::PixelVisualiser::updateMethod = UpdateMethod::Continuous;
 
+// Define a window
+// arg[1] = window title
+// arg[2] = window size
+// arg[3] = window position
 PV::Window& PV::PixelVisualiser::createWindow(const std::string& name, const Vector2<int>& size,
                                               const Vector2<int>& startPosition)
 {
@@ -26,18 +24,24 @@ PV::Window& PV::PixelVisualiser::createWindow(const std::string& name, const Vec
     return *newWindow;
 }
 
+std::map<int, std::shared_ptr<PV::Buffer>>& PV::PixelVisualiser::buffers()
+{
+    static std::map<int, std::shared_ptr<PV::Buffer>> map;
+    return map;
+}
+
 
 void PV::PixelVisualiser::drawPixel(const Vector2<float>& pixelSize, const Pixel& pixel)
 {
     glBegin(GL_TRIANGLES);
     glColor3f(pixel.color.r(), pixel.color.g(), pixel.color.b());
-    glVertex2f(pixel.position.x * pixelSize.x, pixel.position.y * pixelSize.y);
-    glVertex2f((pixel.position.x + 1) * pixelSize.x, pixel.position.y * pixelSize.y);
-    glVertex2f(pixel.position.x * pixelSize.x, (pixel.position.y + 1) * pixelSize.y);
+    glVertex2i(pixel.position.x * pixelSize.x, pixel.position.y * pixelSize.y);
+    glVertex2i((pixel.position.x + 1) * pixelSize.x, pixel.position.y * pixelSize.y);
+    glVertex2i(pixel.position.x * pixelSize.x, (pixel.position.y + 1) * pixelSize.y);
     glColor3f(pixel.color.r(), pixel.color.g(), pixel.color.b());
-    glVertex2f(pixel.position.x * pixelSize.x, (pixel.position.y + 1) * pixelSize.y);
-    glVertex2f((pixel.position.x + 1) * pixelSize.x, pixel.position.y * pixelSize.y);
-    glVertex2f((pixel.position.x + 1) * pixelSize.x, (pixel.position.y + 1) * pixelSize.y);
+    glVertex2i(pixel.position.x * pixelSize.x, (pixel.position.y + 1) * pixelSize.y);
+    glVertex2i((pixel.position.x + 1) * pixelSize.x, pixel.position.y * pixelSize.y);
+    glVertex2i((pixel.position.x + 1) * pixelSize.x, (pixel.position.y + 1) * pixelSize.y);
     glEnd();
 }
 
@@ -72,7 +76,7 @@ void PV::PixelVisualiser::execute()
 
     // Init glut
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 
     for (const std::shared_ptr<Window>& window : windows)
     {
@@ -87,7 +91,10 @@ void PV::PixelVisualiser::execute()
     glutMainLoop();
 }
 
-
+// Define a buffer and a window
+// arg[1] = position inside window
+// arg[2] = dimensions of the buffer in pixels
+// arg[3] = size of a single pixel in the buffer
 PV::Buffer& PV::PixelVisualiser::createBuffer(PV::Vector2<int> position, PV::Vector2<int> size, PV::Vector2<float> pixelSize)
 {
     idCounter++;

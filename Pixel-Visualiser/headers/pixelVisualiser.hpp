@@ -1,39 +1,18 @@
 #pragma once
-#include <algorithm>
-#include <functional>
+
 #include <map>
 #include <memory>
 #include <string>
 #include <vector>
-#include <GL/glut.h>
 
-#include "buffer.hpp"
-#include "vector3.hpp"
+#include "vector2.hpp"
 
 
 namespace PV
 {
+    struct Pixel;
     class Buffer;
     class Window;
-
-    const float M_PI = 3.14159265358979323846;
-    const int NUM_SQUARES = 64;
-
-
-    //function for turning a pixel with pixel size into a square in a grid on screen using glut using the correct color
-    void drawPixel(const Vector2<float>& pixelSize, const Pixel pixel);
-
-    //function for drawing a circle using squares
-    //inline void drawCircleSquares(float x, float y, float radius, int num_segments)
-    //{
-    //    for (int i = 0; i < num_segments; i++) {
-    //        float theta = 2.0f * M_PI * float(i) / float(num_segments);
-    //        float cx = radius * cosf(theta);
-    //        float cy = radius * sinf(theta);
-    //        drawSquare(x + cx, y + cy, 0.1);
-    //    }
-    //}
-
 
     class PixelVisualiser
     {
@@ -57,6 +36,10 @@ namespace PV
         static void display();
         static void start();
         static void loop();
+
+        // function for turning a pixel with pixel size into a square in a grid on screen using glut using the correct color
+        static void drawPixel(const Vector2<float>& pixelSize, const Pixel& pixel);
+
 
 
     public:

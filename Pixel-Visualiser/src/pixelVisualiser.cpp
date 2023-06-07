@@ -1,3 +1,5 @@
+#include <GL/glut.h>
+
 #include "Pixel-Visualiser/headers/pixelVisualiser.hpp"
 #include "Pixel-Visualiser/headers/window.hpp"
 
@@ -25,7 +27,7 @@ PV::Window& PV::PixelVisualiser::createWindow(const std::string& name, const Vec
 }
 
 
-void PV::drawPixel(const Vector2<float>& pixelSize, const Pixel pixel)
+void PV::PixelVisualiser::drawPixel(const Vector2<float>& pixelSize, const Pixel& pixel)
 {
     glBegin(GL_TRIANGLES);
     glColor3f(pixel.color.r(), pixel.color.g(), pixel.color.b());

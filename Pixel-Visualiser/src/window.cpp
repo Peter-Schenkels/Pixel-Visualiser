@@ -26,7 +26,7 @@ void PV::Window::display() const
         for (Pixel pixel: pixels)
         {
             pixel.position += buffer.getPosition();
-            drawPixel(pixelSize, pixel);
+            PixelVisualiser::drawPixel(pixelSize, pixel);
         }
     }
 

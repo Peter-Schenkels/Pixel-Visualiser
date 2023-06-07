@@ -11,15 +11,29 @@ set(HELPER_FUNCTIONS)
 # create helper functions folder
 source_group("Helper Functions" FILES ${HELPER_FUNCTIONS})
 
-set(Tests
-    src/test.cpp
-    headers/test.hpp
+set(Math
+    headers/vector2.hpp
+    headers/vector3.hpp
 )
-# create helper functions folder
-source_group("Tests" FILES ${Tests})
+
+source_group("Math" FILES ${Math})
+
+set(PixelDrawer
+    headers/window.hpp
+    src/window.cpp
+	headers/buffer.hpp
+    src/buffer.cpp
+	headers/pixelVisualiser.hpp
+    src/pixelVisualiser.cpp
+
+)
+
+# create pixel draw interface group
+source_group("Interface" FILES ${PixelDrawer})
+
 
 # Set all sources and headers to a var
-set(SRC ${Tests})
+set(SRC ${Tests} ${PixelDrawer} ${Math})
 
 # define the target
 add_project(Pixel-Visualiser

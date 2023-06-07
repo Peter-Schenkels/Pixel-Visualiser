@@ -19,7 +19,7 @@ void PV::Window::display() const
 
     for (int bufferId : bufferStack)
     {
-        const Buffer& buffer = *buffers.at(bufferId);
+        const Buffer& buffer = *PixelVisualiser::buffers().at(bufferId);
         const Vector2<float> pixelSize = buffer.getPixelSize();
 
         const std::vector<Pixel>& pixels = buffer.getPixels();
@@ -39,13 +39,6 @@ void PV::Window::start() const
     glutInitWindowPosition(startPosition.x, startPosition.y);
     glutCreateWindow(name.c_str());
     glClearColor(1.0, 1.0, 1.0, 0.0);
-}
-
-PV::Buffer& PV::Window::createBuffer(PV::Vector2<int> position, PV::Vector2<int> size, PV::Vector2<float> pixelSize)
-{
-    idCounter++;
-    buffers[idCounter] = std::make_shared<Buffer>(size, pixelSize, position, idCounter);
-    return *buffers[idCounter];
 }
 
 void PV::Window::focus(const Buffer& buffer)

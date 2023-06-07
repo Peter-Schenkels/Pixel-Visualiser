@@ -20,12 +20,13 @@ set(Math
 source_group("Math" FILES ${Math})
 
 set(PixelDrawer
-    src/window.cpp
     headers/window.hpp
-    src/pixelVisualiser.cpp
-    headers/pixelVisualiser.hpp
+    src/window.cpp
+	headers/buffer.hpp
     src/buffer.cpp
-    headers/buffer.hpp
+	headers/pixelVisualiser.hpp
+    src/pixelVisualiser.cpp
+
 )
 
 # create pixel draw interface group

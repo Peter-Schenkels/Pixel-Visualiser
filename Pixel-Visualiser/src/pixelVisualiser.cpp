@@ -1,9 +1,19 @@
 #include "Pixel-Visualiser/headers/pixelVisualiser.hpp"
 #include "Pixel-Visualiser/headers/window.hpp"
 
+
+std::vector<std::shared_ptr<PV::Window>> PV::PixelVisualiser::windows{};
+std::map<int, std::shared_ptr<PV::Buffer>>& PV::PixelVisualiser::buffers()
+{
+    static std::map<int, std::shared_ptr<PV::Buffer>> map;
+    return map;
+}
+
 // Declare static members
 int PV::PixelVisualiser::currentWindow = 0;
-std::vector<std::shared_ptr<PV::Window>> PV::PixelVisualiser::windows{};
+int PV::PixelVisualiser::idCounter = 0;
+
+
 PV::PixelVisualiser::UpdateMethod PV::PixelVisualiser::updateMethod = UpdateMethod::Continuous;
 
 PV::Window& PV::PixelVisualiser::createWindow(const std::string& name, const Vector2<int>& size,
@@ -13,6 +23,7 @@ PV::Window& PV::PixelVisualiser::createWindow(const std::string& name, const Vec
     windows.push_back(newWindow);
     return *newWindow;
 }
+
 
 void PV::drawPixel(const Vector2<float>& pixelSize, const Pixel pixel)
 {
@@ -27,6 +38,7 @@ void PV::drawPixel(const Vector2<float>& pixelSize, const Pixel pixel)
     glVertex2f((pixel.position.x + 1) * pixelSize.x, (pixel.position.y + 1) * pixelSize.y);
     glEnd();
 }
+
 
 void PV::PixelVisualiser::display()
 {
@@ -46,11 +58,12 @@ void PV::PixelVisualiser::display()
         glutPostRedisplay();
 }
 
+
 void PV::PixelVisualiser::execute()
 {
-    // Create valid argc and argv variables whch are required by glutInit
+    // Create valid argc and argv variables which are required by glutInit
     int argc = 0;
-    char* argv[] = {0};
+    char* argv[] = {nullptr};
 
     // Call start callback
     start();
@@ -70,4 +83,12 @@ void PV::PixelVisualiser::execute()
 
     // Start the start loop
     glutMainLoop();
+}
+
+
+PV::Buffer& PV::PixelVisualiser::createBuffer(PV::Vector2<int> position, PV::Vector2<int> size, PV::Vector2<float> pixelSize)
+{
+    idCounter++;
+    buffers()[idCounter] = std::make_shared<Buffer>(size, pixelSize, position, idCounter);
+    return *buffers()[idCounter];
 }

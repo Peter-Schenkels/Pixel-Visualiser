@@ -1,6 +1,7 @@
 #pragma once
 #include <algorithm>
 #include <functional>
+#include <map>
 #include <memory>
 #include <string>
 #include <vector>
@@ -44,20 +45,26 @@ namespace PV
         };
 
     private:
+        friend class Window;
+
+        static int idCounter;
+        static std::map<int, std::shared_ptr<Buffer>>& buffers();
+
         static std::vector<std::shared_ptr<Window>> windows;
         static int currentWindow;
         static UpdateMethod updateMethod;
 
         static void display();
         static void start();
-        static int pulse(int input, int speed, int max);
         static void loop();
-        static void drawRectangleBorders(const Buffer& buffer, Vector2<int> position, Vector2<int> size, Color color);
+
 
     public:
         // function to create a window and add to the list of windows
         static Window& createWindow(const std::string& name, const Vector2<int>& size,
                                     const Vector2<int>& startPosition);
+
+        static [[nodiscard]] Buffer& createBuffer(Vector2<int> position, Vector2<int> size, Vector2<float> pixelSize);
 
         // Start the application
         static void execute();

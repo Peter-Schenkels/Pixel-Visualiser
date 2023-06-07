@@ -10,27 +10,24 @@ namespace PV
 {
     class Window
     {
-        int idCounter = 0;
+        friend class PixelVisualiser;
+
         std::string name;
         Vector2<int> size;
         Vector2<int> startPosition;
-        std::map<int, std::shared_ptr<Buffer>> buffers;
 
         std::vector<int> bufferStack;
 
+        void start() const;
+
+        void display() const;
 
     public:
         Window(std::string name, const Vector2<int>& size, const Vector2<int>& startPosition);
 
-        void display() const;
-
-        void start() const;
-
-        [[nodiscard]] Buffer& createBuffer(Vector2<int> position, Vector2<int> size, Vector2<float> pixelSize);
-
         void focus(const Buffer& buffer);
 
-        void unfocus() { bufferStack.clear(); }
+        void unfocusAll() { bufferStack.clear(); }
 
         bool unfocus(const Buffer& buffer) { return std::remove(bufferStack.begin(), bufferStack.end(), buffer.getId()) != bufferStack.end(); }
     };

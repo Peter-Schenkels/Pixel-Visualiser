@@ -26,7 +26,7 @@ namespace PV
     private:
         friend class Window;
 
-        static int idCounter;
+        static int bufferIdCounter;
         static std::map<int, std::shared_ptr<Buffer>>& buffers();
 
         static std::vector<std::shared_ptr<Window>> windows;

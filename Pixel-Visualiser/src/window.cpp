@@ -1,7 +1,6 @@
-#include <GL/glut.h>
-#include <Pixel-Visualiser/headers/window.hpp>
+#include "Pixel-Visualiser/headers/window.hpp"
 #include "Pixel-Visualiser/headers/pixelVisualiser.hpp"
-
+#include "Pixel-Visualiser/headers/mouse.hpp"
 
 
 PV::Window::Window(std::string name, const Vector2<int>& size, const Vector2<int>& startPosition):
@@ -42,11 +41,12 @@ void PV::Window::display() const
     glutSwapBuffers();
 }
 
-void PV::Window::start() const
+void PV::Window::start()
 {
     glutInitWindowSize(size.x, size.y);
     glutInitWindowPosition(startPosition.x, startPosition.y);
-    glutCreateWindow(name.c_str());
+
+    identifier = glutCreateWindow(name.c_str());
     glClearColor(1.0, 1.0, 1.0, 0.0);
 }
 

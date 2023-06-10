@@ -25,7 +25,8 @@ set(PixelDrawer
     src/buffer.cpp
 	headers/pixelVisualiser.hpp
     src/pixelVisualiser.cpp
-
+	headers/mouse.hpp
+	src/mouse.cpp
 )
 
 # create pixel draw interface group

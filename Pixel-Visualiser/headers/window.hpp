@@ -4,7 +4,7 @@
 #include <string>
 
 #include "buffer.hpp"
-#include "vector3.hpp"
+#include "vector2.hpp"
 
 namespace PV
 {
@@ -15,14 +15,17 @@ namespace PV
         std::string name;
         Vector2<int> size;
         Vector2<int> startPosition;
-
         std::vector<int> bufferStack;
+        int identifier{};
 
-        void start() const;
+        void start();
 
         void display() const;
 
     public:
+
+        int getId() const { return identifier; }
+
         Window(std::string name, const Vector2<int>& size, const Vector2<int>& startPosition);
 
         void focus(const Buffer& buffer);

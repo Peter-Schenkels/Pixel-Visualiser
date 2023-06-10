@@ -1,6 +1,8 @@
 #include <GL/glut.h>
 
 #include "Pixel-Visualiser/headers/pixelVisualiser.hpp"
+
+#include "Pixel-Visualiser/headers/mouse.hpp"
 #include "Pixel-Visualiser/headers/window.hpp"
 
 
@@ -8,7 +10,7 @@ std::vector<std::shared_ptr<PV::Window>> PV::PixelVisualiser::windows{};
 
 // Declare static members
 int PV::PixelVisualiser::currentWindow = 0;
-int PV::PixelVisualiser::idCounter = 0;
+int PV::PixelVisualiser::bufferIdCounter = 0;
 
 PV::PixelVisualiser::UpdateMethod PV::PixelVisualiser::updateMethod = UpdateMethod::Continuous;
 
@@ -19,7 +21,7 @@ PV::PixelVisualiser::UpdateMethod PV::PixelVisualiser::updateMethod = UpdateMeth
 PV::Window& PV::PixelVisualiser::createWindow(const std::string& name, const Vector2<int>& size,
                                               const Vector2<int>& startPosition)
 {
-    const auto newWindow = std::make_shared<Window>(name, size, startPosition);
+    const std::shared_ptr<Window> newWindow = std::make_shared<Window>(name, size, startPosition);
     windows.push_back(newWindow);
     return *newWindow;
 }
@@ -54,10 +56,12 @@ void PV::PixelVisualiser::display()
     if (!windows.empty())
     {
         windows[currentWindow]->display();
-
         // Loop through window count every display update
         currentWindow = (currentWindow + 1) % windows.size();
     }
+    // Set mouse callback
+    glutMouseFunc(Input::Mouse::handleMouseEvents);
+    glutPassiveMotionFunc(Input::Mouse::handlePassiveMouseEvents);
 
     // Reschedule display call
     if (updateMethod == UpdateMethod::Continuous)
@@ -82,7 +86,6 @@ void PV::PixelVisualiser::execute()
     {
         // Initialise the window
         window->start();
-
         // Link the static display callback to every window GLUT callback
         glutDisplayFunc(display);
     }
@@ -97,7 +100,7 @@ void PV::PixelVisualiser::execute()
 // arg[3] = size of a single pixel in the buffer
 PV::Buffer& PV::PixelVisualiser::createBuffer(PV::Vector2<int> position, PV::Vector2<int> size, PV::Vector2<float> pixelSize)
 {
-    idCounter++;
-    buffers()[idCounter] = std::make_shared<Buffer>(size, pixelSize, position, idCounter);
-    return *buffers()[idCounter];
+    bufferIdCounter++;
+    buffers()[bufferIdCounter] = std::make_shared<Buffer>(size, pixelSize, position, bufferIdCounter);
+    return *buffers()[bufferIdCounter];
 }

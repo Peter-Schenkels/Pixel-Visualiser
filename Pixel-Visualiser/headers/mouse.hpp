@@ -37,6 +37,7 @@ namespace PV::Input
 			Mouse::Button button = Mouse::Button::None;
 			Mouse::State state = Mouse::State::None;
 			Vector2<int> position = Vector2(0, 0);
+			uint64_t tick;
 			int windowId = -1;
 		};
 

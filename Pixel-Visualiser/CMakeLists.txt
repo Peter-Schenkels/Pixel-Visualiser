@@ -18,6 +18,16 @@ set(Math
 
 source_group("Math" FILES ${Math})
 
+set(Input
+	headers/mouse.hpp
+	src/mouse.cpp
+	headers/keyboard.hpp
+	src/keyboard.cpp
+)
+
+
+source_group("Input" FILES ${Input})
+
 set(PixelDrawer
     headers/window.hpp
     src/window.cpp
@@ -25,8 +35,6 @@ set(PixelDrawer
     src/buffer.cpp
 	headers/pixelVisualiser.hpp
     src/pixelVisualiser.cpp
-	headers/mouse.hpp
-	src/mouse.cpp
 )
 
 # create pixel draw interface group
@@ -34,7 +42,7 @@ source_group("Interface" FILES ${PixelDrawer})
 
 
 # Set all sources and headers to a var
-set(SRC ${Tests} ${PixelDrawer} ${Math})
+set(SRC ${Tests} ${Input} ${PixelDrawer} ${Math})
 
 # define the target
 add_project(Pixel-Visualiser

@@ -1,7 +1,8 @@
 #include <GL/glut.h>
+#include <iostream>
 
 #include "Pixel-Visualiser/headers/pixelVisualiser.hpp"
-
+#include "Pixel-Visualiser/headers/keyboard.hpp"
 #include "Pixel-Visualiser/headers/mouse.hpp"
 #include "Pixel-Visualiser/headers/window.hpp"
 
@@ -11,6 +12,7 @@ std::vector<std::shared_ptr<PV::Window>> PV::PixelVisualiser::windows{};
 // Declare static members
 int PV::PixelVisualiser::currentWindow = 0;
 int PV::PixelVisualiser::bufferIdCounter = 0;
+uint64_t PV::PixelVisualiser::tick = 0;
 
 PV::PixelVisualiser::UpdateMethod PV::PixelVisualiser::updateMethod = UpdateMethod::Continuous;
 
@@ -47,11 +49,17 @@ void PV::PixelVisualiser::drawPixel(const Vector2<float>& pixelSize, const Pixel
     glEnd();
 }
 
+uint64_t PV::PixelVisualiser::getTick()
+{
+    return tick;
+}
+
 
 void PV::PixelVisualiser::display()
 {
     // Call start loop callback
     loop();
+
 
     if (!windows.empty())
     {
@@ -59,13 +67,19 @@ void PV::PixelVisualiser::display()
         // Loop through window count every display update
         currentWindow = (currentWindow + 1) % windows.size();
     }
+
     // Set mouse callback
     glutMouseFunc(Input::Mouse::handleMouseEvents);
     glutPassiveMotionFunc(Input::Mouse::handlePassiveMouseEvents);
+    glutKeyboardFunc(Input::Keyboard::handleKeyboardDownEvents);
+    glutKeyboardUpFunc(Input::Keyboard::handleKeyboardUpEvents);
+    Input::Keyboard::updateKeyboardEvents();
 
     // Reschedule display call
     if (updateMethod == UpdateMethod::Continuous)
         glutPostRedisplay();
+
+    tick++;
 }
 
 

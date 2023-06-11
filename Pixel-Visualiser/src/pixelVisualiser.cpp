@@ -1,6 +1,14 @@
 #include <GL/glut.h>
 
 #include "Pixel-Visualiser/headers/pixelVisualiser.hpp"
+<<<<<<< Updated upstream
+=======
+
+#include <iostream>
+
+#include "Pixel-Visualiser/headers/keyboard.hpp"
+#include "Pixel-Visualiser/headers/mouse.hpp"
+>>>>>>> Stashed changes
 #include "Pixel-Visualiser/headers/window.hpp"
 
 
@@ -8,7 +16,12 @@ std::vector<std::shared_ptr<PV::Window>> PV::PixelVisualiser::windows{};
 
 // Declare static members
 int PV::PixelVisualiser::currentWindow = 0;
+<<<<<<< Updated upstream
 int PV::PixelVisualiser::idCounter = 0;
+=======
+int PV::PixelVisualiser::bufferIdCounter = 0;
+uint64_t PV::PixelVisualiser::tick = 0;
+>>>>>>> Stashed changes
 
 PV::PixelVisualiser::UpdateMethod PV::PixelVisualiser::updateMethod = UpdateMethod::Continuous;
 
@@ -45,11 +58,17 @@ void PV::PixelVisualiser::drawPixel(const Vector2<float>& pixelSize, const Pixel
     glEnd();
 }
 
+uint64_t PV::PixelVisualiser::getTick()
+{
+    return tick;
+}
+
 
 void PV::PixelVisualiser::display()
 {
     // Call start loop callback
     loop();
+
 
     if (!windows.empty())
     {
@@ -58,10 +77,29 @@ void PV::PixelVisualiser::display()
         // Loop through window count every display update
         currentWindow = (currentWindow + 1) % windows.size();
     }
+<<<<<<< Updated upstream
+=======
+    // Set mouse callback
+    glutMouseFunc(Input::Mouse::handleMouseEvents);
+    glutPassiveMotionFunc(Input::Mouse::handlePassiveMouseEvents);
+    glutKeyboardFunc(Input::Keyboard::handleKeyboardDownEvents);
+    glutKeyboardUpFunc(Input::Keyboard::handleKeyboardUpEvents);
+
+    // Print pressed keys
+    for (auto [key, keyInfo] : Input::Keyboard::keys)
+    {
+       if (keyInfo.state == Input::Keyboard::State::Released)
+           std::cout << key << " ";
+    }
+
+    Input::Keyboard::updateKeyboardEvents();
+>>>>>>> Stashed changes
 
     // Reschedule display call
     if (updateMethod == UpdateMethod::Continuous)
         glutPostRedisplay();
+
+    tick++;
 }
 
 

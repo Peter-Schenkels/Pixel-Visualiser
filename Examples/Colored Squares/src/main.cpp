@@ -66,7 +66,6 @@ static void drawRectangleBorders(const PV::Buffer& buffer, const PV::Vector2<int
     }
 }
 
-
 // Decide what to draw this frame
 void PV::PixelVisualiser::loop()
 {

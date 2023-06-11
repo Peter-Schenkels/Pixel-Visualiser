@@ -26,7 +26,12 @@ namespace PV
     private:
         friend class Window;
 
+<<<<<<< Updated upstream
         static int idCounter;
+=======
+        static int bufferIdCounter;
+        static uint64_t tick;
+>>>>>>> Stashed changes
         static std::map<int, std::shared_ptr<Buffer>>& buffers();
 
         static std::vector<std::shared_ptr<Window>> windows;
@@ -37,12 +42,14 @@ namespace PV
         static void start();
         static void loop();
 
+
         // function for turning a pixel with pixel size into a square in a grid on screen using glut using the correct color
         static void drawPixel(const Vector2<float>& pixelSize, const Pixel& pixel);
 
-
-
     public:
+        static uint64_t getTick();
+
+
         // function to create a window and add to the list of windows
         static Window& createWindow(const std::string& name, const Vector2<int>& size,
                                     const Vector2<int>& startPosition);

@@ -15,8 +15,6 @@ static PV::Buffer& trials2   = PV::PixelVisualiser::createBuffer({ 0,0 }, { 10, 
 static PV::Window& window1   = PV::PixelVisualiser::createWindow("Colored boxes 1!", { 500, 500 }, { 100, 100 });
 static PV::Window& window2   = PV::PixelVisualiser::createWindow("Colored boxes 2!", { 500, 500 }, { 600, 100 });
 
-static int tick = 0;
-
 // Is run after calling PV::Execute
 void PV::PixelVisualiser::start()
 {
@@ -80,8 +78,7 @@ void PV::PixelVisualiser::loop()
     constexpr int speedRatio = 1;
 
     // Update frame tickNr
-    tick += 1;
-    int tickPos = tick % 300;
+    int tickPos = PV::PixelVisualiser::getTick() % 300;
 
     // Define pos of the boxes
     const auto box1Pos = Vector2(tickPos / speedRatio, tickPos / speedRatio + pulse(tickPos + 20, 10, 23));

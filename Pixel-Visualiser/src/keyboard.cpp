@@ -1,4 +1,5 @@
 #include <map>
+#include <GL/freeglut_std.h>
 
 #include "Pixel-Visualiser/headers/keyboard.hpp"
 #include "Pixel-Visualiser/headers/pixelVisualiser.hpp"

@@ -9,7 +9,6 @@ std::map<int, PV::Input::Mouse::Info> PV::Input::Mouse::currentMouseInfos;
 
 void PV::Input::Mouse::handleMouseEvents(int buttonIn, int stateIn, const int x, const int y)
 {
-
 	auto& [button, state, position, tick, windowId] = currentMouseInfos[glutGetWindow()];
 	button		= static_cast<Button>(buttonIn);
 	state		= static_cast<State>(stateIn);

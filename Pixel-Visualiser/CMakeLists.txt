@@ -35,10 +35,6 @@ set(PixelDrawer
     src/buffer.cpp
 	headers/pixelVisualiser.hpp
     src/pixelVisualiser.cpp
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 )
 
 # create pixel draw interface group

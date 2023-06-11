@@ -25,13 +25,8 @@ namespace PV
 
     private:
         friend class Window;
-
-<<<<<<< Updated upstream
-        static int idCounter;
-=======
         static int bufferIdCounter;
         static uint64_t tick;
->>>>>>> Stashed changes
         static std::map<int, std::shared_ptr<Buffer>>& buffers();
 
         static std::vector<std::shared_ptr<Window>> windows;

@@ -12,8 +12,8 @@ static PV::Buffer& trials1   = PV::PixelVisualiser::createBuffer({ 0,0 }, { 10, 
 static PV::Buffer& trials2   = PV::PixelVisualiser::createBuffer({ 0,0 }, { 10, 10 }, { 2, 2 });
 
 // Define window
-static PV::Window& window1   = PV::PixelVisualiser::createWindow("Colored boxes!", { 500, 500 }, { 100, 100 });
-static PV::Window& window2   = PV::PixelVisualiser::createWindow("Colored boxes!", { 500, 500 }, { 600, 100 });
+static PV::Window& window1   = PV::PixelVisualiser::createWindow("Colored boxes 1!", { 500, 500 }, { 100, 100 });
+static PV::Window& window2   = PV::PixelVisualiser::createWindow("Colored boxes 2!", { 500, 500 }, { 600, 100 });
 
 static int tick = 0;
 
